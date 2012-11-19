@@ -1,7 +1,10 @@
 # Django settings for mysite project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 ADMINS = (
      ('yuping', 'yupingseu@gmail.com'),
@@ -82,6 +85,8 @@ SECRET_KEY = 'h%&amp;#01r6i=%i5bn!k7_6j&amp;1#$nu41hag@74rtl+flxbh^+x7gq'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'hamlpy.template.loaders.HamlPyFilesystemLoader',
+    'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
@@ -96,6 +101,13 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+# for cache
+#TEMPLATE_LOADERS = (
+    #('django.template.loaders.cached.Loader', (
+        #'hamlpy.template.loaders.HamlPyFilesystemLoader',
+        #'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
+    #)),
+#)
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -106,6 +118,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    PROJECT_PATH + '../blog/templates/',
 )
 
 INSTALLED_APPS = (
@@ -121,6 +134,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'south', #to add migrations
     'blog',
+    'rest_framework', #Restfull api for django
 )
 
 # A sample logging configuration. The only tangible logging
