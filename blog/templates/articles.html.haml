@@ -1,0 +1,11 @@
+%ul
+  -for article in articales
+    %li
+      .title
+        = article.title
+      .slug
+        = article.slug
+      .preview
+        = article.preview
+      .author
+        = article.author.username
