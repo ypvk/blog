@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from django.http import Http404
 from django.shortcuts import render_to_response
 
-from blog.models import User
+from django.contrib.auth.models import User
 from blog.serializers import UserSerializer
 
 import logging
