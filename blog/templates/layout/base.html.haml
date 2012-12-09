@@ -1,0 +1,19 @@
+!!! 5
+%html
+  %head
+    %title
+      - block title
+        = "Blog by Yu Ping"
+    %meta{'charset': 'utf-8'}
+  %body
+    #header
+      .container.clearfix
+        %ul.site-nav
+          %li
+            %a{'href': "{% url users %}"}= 'Users'
+          %li
+            %a{'href': "{% url articles %}"}= 'Articles'
+          %li
+            %a{'href': ' '}= 'About'
+    #site
+      - block body
