@@ -8,4 +8,5 @@ urlpatterns = patterns('blog.views.users',
         url(r'^(?P<username>.+)/edit/$', users.UserEdit.as_view(), name="user_edit"),
         url(r'^(?P<username>.+)/$', users.UserItem.as_view(), name="user"),
         )
-urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'html'])
+#urlpatterns = format_suffix_patterns(urlpatterns)

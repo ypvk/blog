@@ -8,4 +8,4 @@ urlpatterns = patterns('blog.views.articles',
         url(r'^(?P<slug>.+)/edit/$', articles.ArticleEdit.as_view(), name='article_edit'),
         url(r'^(?P<slug>.+)/$', articles.ArticleItem.as_view(), name='article'),
         )
-urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'html'])

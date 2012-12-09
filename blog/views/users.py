@@ -24,7 +24,7 @@ class UserList(APIView):
         """
         users = User.objects.all()
         serializer = UserSerializer(users)
-        return render_to_response('users.html.haml', {'users': serializer.object})
+        return render_to_response('users.html.haml', {'users': serializer.object, 'format': format})
     def post(self, request, format=None):
         """
         Create POST /users
