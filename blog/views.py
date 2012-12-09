@@ -21,17 +21,20 @@ class UserList(APIView):
     """
     def get(self, request, format=None):
         """
-        get index view
+        Index GET /users
         """
         users = User.objects.all()
         serializer = UserSerializer(users)
         return render_to_response('users.html.haml', {'users': serializer.object})
     def post(self, request, format=None):
+        """
+        Create POST /users
+        """
         return
 
     def new(self, request, format=None):
         """
-        GET /users/new
+        New GET /users/new
         """
         return
 
@@ -49,6 +52,9 @@ class UserItem(APIView):
             raise Http404
 
     def get(self, request, username, format=None):
+        """
+        Show: GET /users/:username
+        """
         user = self.get_object(username)
         serializer = UserSerializer(user)
         if format == 'json':
@@ -57,19 +63,20 @@ class UserItem(APIView):
             return render_to_response('user.html.haml', {'user': serializer.object, 'format': format})
 
     def put(self, request, username, format=None):
+        """
+        Update : PUT /users/:username
+        """
         return
 
     def delete(self, request, username, format=None):
         """
-        DELETE /users/:username
+        Destroy: DELETE /users/:username
         """
         return
 
-    def new(self, request, username, format=None):
-        return
     def edit(self, request, username, format=None):
         """
-        GET /users/:username/edit
+        Edit GET /users/:username/edit
         """
         return
 
@@ -78,16 +85,22 @@ class ArticleList(APIView):
     Article List
     """
     def get(self, request, format=None):
+        """
+        Index GET /articles
+        """
         articles = Article.objects.all()
         serializers = ArticleSerializer(articles)
         return render_to_response('articles.html.haml', {'articles': serializers.object})
 
     def post(self, request, format=None):
+        """
+        Create POST /articles
+        """
         return
 
     def new(self, request, format=None):
         """
-        GET /users/new
+        New GET /users/new
         """
         return
 class ArticleItem(APIView):
@@ -100,22 +113,31 @@ class ArticleItem(APIView):
         """
         try:
             return Article.objects.get(slug=slug)
-        except User.DoesNotExist:
+        except Article.DoesNotExist:
             raise Http404
 
     def get(self, request, slug, format=None):
         """
-        individual article
+        Show GET /articles/:slug
         """
         article = self.get_article(slug)
         serializer = ArticleSerializer(article)
         return render_to_response('article.html.haml', {'article': serializer.object})
 
     def put(self, request, slug, format=None):
+        """
+        Update PUT /articles/:slug
+        """
         return
 
     def delete(self, request, slug, format=None):
+        """
+        Destroy DELETE /articles/:slug
+        """
         return
 
     def edit(self, request, slug, format=None):
+        """
+        Edit GET /articles/:slug/edit
+        """
         return
