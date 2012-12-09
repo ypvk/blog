@@ -31,12 +31,6 @@ class UserList(APIView):
         """
         return
 
-    def new(self, request, format=None):
-        """
-        New GET /users/new
-        """
-        return
-
 class UserItem(APIView):
     """
     deal with each user
@@ -73,8 +67,33 @@ class UserItem(APIView):
         """
         return
 
-    def edit(self, request, username, format=None):
+class UserNew(APIView):
+    """
+    new user
+    """
+
+    def get(self, request, format=None):
+        """
+        New GET /users/new
+        """
+        return Response({'yuping': 'helloworld'})
+
+class UserEdit(APIView):
+    """
+    edit user
+    """
+    def get_object(self, username):
+        """
+        get user by username
+        """
+        try:
+            return User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request, username, foramt=None):
         """
         Edit GET /users/:username/edit
         """
-        return
+        user = self.get_object(username)
+        return Response({'yuping': user.username})

@@ -75,3 +75,34 @@ class ArticleItem(APIView):
         Edit GET /articles/:slug/edit
         """
         return
+class ArticleNew(APIView):
+    """
+    new article
+    """
+
+    def get(self, request, format=None):
+        """
+        New GET /articles/new
+        """
+        return Response({'yuping': 'helloworld'})
+
+class ArticleEdit(APIView):
+    """
+    edit user
+    """
+    def get_article(self, slug):
+        """
+        get article by slug
+        """
+        try:
+            return Article.objects.get(slug=slug)
+        except Article.DoesNotExist:
+            raise Http404
+
+    def get(self, request, slug, format=None):
+        """
+        Edit GET /articles/:slug
+        """
+        article = self.get_article(slug)
+        serializer = ArticleSerializer(article)
+        return render_to_response('article.html.haml', {'article': serializer.object})
