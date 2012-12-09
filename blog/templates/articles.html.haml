@@ -1,11 +1,15 @@
-%ul
-  -for article in articles
-    %li
-      .title
-        = article.title
-      .slug
-        = article.slug
-      .preview
-        = article.preview
-      .author
-        = article.author.username
+-extends "layout/base.html.haml"
+- block body
+  .container
+    %ul
+      -for article in articles
+        %li
+          .title
+            = article.title
+          .slug
+            %a{'href': "{% url article article.slug %}"}
+              = article.slug
+          .preview
+            = article.preview
+          .author
+            = article.author.username
