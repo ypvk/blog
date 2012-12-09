@@ -1,6 +1,10 @@
-%body
-  %ul
-    -for u in users
-      %li.user
-        %span= u.username
-        %span= u.email
+-extends "layout/base.html.haml"
+- block body
+  .container
+    %ul
+      -for u in users
+        %li.user
+          %span
+            %a{'href': "{% url user u.username %}"}
+              = u.username
+          %span= u.email

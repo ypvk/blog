@@ -1,4 +1,7 @@
-%h1= 'hello world'
-%h2= user.username
-%h2= user.email
-%h2= format
+-extends "layout/base.html.haml"
+- block body
+  .container
+    %h1= 'hello world'
+    %h2= user.username
+    %h2= user.email
+    %h2= format
