@@ -4,8 +4,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.views.decorators.csrf import csrf_protect
 
 from blog.models import Article
 from blog.serializers import ArticleSerializer
@@ -28,11 +29,17 @@ class ArticleList(APIView):
         serializers = ArticleSerializer(articles)
         return render_to_response('articles.html.haml', {'articles': serializers.object})
 
+    @csrf_protect
     def post(self, request, format=None):
         """
         Create POST /articles
         """
-        return
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            article = Article.objects.create(form.cleaned_data)
+            return HttpResponseRedirect('/articles/')
+        else:
+            return render_to_response('article_new.html.haml', {'form': form})
 
 class ArticleItem(APIView):
     """
@@ -55,6 +62,7 @@ class ArticleItem(APIView):
         serializer = ArticleSerializer(article)
         return render_to_response('article.html.haml', {'article': serializer.object})
 
+    @csrf_protect
     def put(self, request, slug, format=None):
         """
         Update PUT /articles/:slug
