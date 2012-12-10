@@ -9,6 +9,8 @@ from django.shortcuts import render_to_response
 
 from blog.models import Article
 from blog.serializers import ArticleSerializer
+# form for article
+from blog.forms import ArticleForm
 
 import logging
 
@@ -32,11 +34,6 @@ class ArticleList(APIView):
         """
         return
 
-    def new(self, request, format=None):
-        """
-        New GET /users/new
-        """
-        return
 class ArticleItem(APIView):
     """
     for individual article
@@ -70,11 +67,6 @@ class ArticleItem(APIView):
         """
         return
 
-    def edit(self, request, slug, format=None):
-        """
-        Edit GET /articles/:slug/edit
-        """
-        return
 class ArticleNew(APIView):
     """
     new article
@@ -84,7 +76,8 @@ class ArticleNew(APIView):
         """
         New GET /articles/new
         """
-        return Response({'yuping': 'helloworld'})
+        form = ArticleForm()
+        return render_to_response('article_new.html.haml', {'form': form})
 
 class ArticleEdit(APIView):
     """

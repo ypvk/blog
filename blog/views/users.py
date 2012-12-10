@@ -9,6 +9,8 @@ from django.shortcuts import render_to_response
 
 from django.contrib.auth.models import User
 from blog.serializers import UserSerializer
+# form for users 
+from blog.forms import UserRegisterForm, UserLoginForm
 
 import logging
 
@@ -76,7 +78,8 @@ class UserNew(APIView):
         """
         New GET /users/new
         """
-        return Response({'yuping': 'helloworld'})
+        form = UserRegisterForm()
+        return render_to_response('user_new.html.haml', {'form': form})
 
 class UserEdit(APIView):
     """
