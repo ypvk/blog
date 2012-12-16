@@ -1,0 +1,8 @@
+- extends "layout/base.html.haml"
+- block body
+  .container
+    %form{'action': "{% url article article.slug %}", 'method': 'post'}
+      %input{'type': 'hidden', 'name':'_method', 'value': 'put'}
+      - csrf_token
+      = form.as_p
+      %input{'type': "submit", 'name': "submit", 'value': 'submit'}
