@@ -11,6 +11,9 @@
           .slug
             %a{'href': "{% url article article.slug %}"}
               = article.slug
+          .edit
+            %a{'href': "{% url article_edit article.slug %}"}
+              = 'edit'
           .preview
             = article.preview
           .author
