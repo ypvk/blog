@@ -29,14 +29,14 @@ class ArticleList(APIView):
         serializers = ArticleSerializer(articles)
         return render_to_response('articles.html.haml', {'articles': serializers.object})
 
-    @csrf_protect
+    #@csrf_protect
     def post(self, request, format=None):
         """
         Create POST /articles
         """
         form = ArticleForm(request.POST)
         if form.is_valid():
-            article = Article.objects.create(form.cleaned_data)
+            article = form.save()
             return HttpResponseRedirect('/articles/')
         else:
             return render_to_response('article_new.html.haml', {'form': form})
@@ -62,12 +62,17 @@ class ArticleItem(APIView):
         serializer = ArticleSerializer(article)
         return render_to_response('article.html.haml', {'article': serializer.object})
 
-    @csrf_protect
+    #@csrf_protect
     def put(self, request, slug, format=None):
         """
         Update PUT /articles/:slug
         """
-        return
+        article = self.get_article(slug)
+        form = ArticleForm(request.POST, instance=article)
+        if form.save():
+            return HttpResponseRedirect('/articles/')
+        else:
+            return render_to_response('article_edit.html.haml', {'form': form})
 
     def delete(self, request, slug, format=None):
         """
@@ -105,5 +110,5 @@ class ArticleEdit(APIView):
         Edit GET /articles/:slug
         """
         article = self.get_article(slug)
-        serializer = ArticleSerializer(article)
-        return render_to_response('article.html.haml', {'article': serializer.object})
+        form = ArticleForm(instance=article)
+        return render_to_response('article_edit.html.haml', {'form': form, 'article': article})
