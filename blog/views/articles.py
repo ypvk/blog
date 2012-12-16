@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.views.decorators.csrf import csrf_protect
 
 from blog.models import Article
@@ -37,7 +37,7 @@ class ArticleList(APIView):
         form = ArticleForm(request.POST)
         if form.is_valid():
             article = form.save()
-            return HttpResponseRedirect('/articles/')
+            return redirect('articles')
         else:
             return render_to_response('article_new.html.haml', {'form': form})
 
@@ -70,7 +70,7 @@ class ArticleItem(APIView):
         article = self.get_article(slug)
         form = ArticleForm(request.POST, instance=article)
         if form.save():
-            return HttpResponseRedirect('/articles/')
+            return redirect('articles')
         else:
             return render_to_response('article_edit.html.haml', {'form': form})
 
@@ -78,7 +78,7 @@ class ArticleItem(APIView):
         """
         Destroy DELETE /articles/:slug
         """
-        return
+        return HttpResponseRedirect('/users/')
 
 class ArticleNew(APIView):
     """
