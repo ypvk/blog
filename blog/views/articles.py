@@ -7,6 +7,7 @@ from rest_framework.settings import api_settings
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.views.decorators.csrf import csrf_protect
+from django.template import RequestContext
 
 from blog.models import Article
 from blog.serializers import ArticleSerializer
@@ -27,7 +28,9 @@ class ArticleList(APIView):
         """
         articles = Article.objects.all()
         serializers = ArticleSerializer(articles)
-        return render_to_response('articles.html.haml', {'articles': serializers.object})
+        return render_to_response('articles.html.haml',
+                {'articles': serializers.object},
+                context_instance=RequestContext(request))
 
     #@csrf_protect
     def post(self, request, format=None):
@@ -39,7 +42,9 @@ class ArticleList(APIView):
             article = form.save()
             return redirect('articles')
         else:
-            return render_to_response('article_new.html.haml', {'form': form})
+            return render_to_response('article_new.html.haml',
+                    {'form': form},
+                    context_instance=RequestContext(request))
 
 class ArticleItem(APIView):
     """
@@ -60,7 +65,9 @@ class ArticleItem(APIView):
         """
         article = self.get_article(slug)
         serializer = ArticleSerializer(article)
-        return render_to_response('article.html.haml', {'article': serializer.object})
+        return render_to_response('article.html.haml',
+                {'article': serializer.object},
+                context_instance=RequestContext(request))
 
     #@csrf_protect
     def put(self, request, slug, format=None):
@@ -72,7 +79,9 @@ class ArticleItem(APIView):
         if form.save():
             return redirect('articles')
         else:
-            return render_to_response('article_edit.html.haml', {'form': form})
+            return render_to_response('article_edit.html.haml',
+                    {'form': form},
+                    context_instance=RequestContext(request))
 
     def delete(self, request, slug, format=None):
         """
@@ -90,7 +99,9 @@ class ArticleNew(APIView):
         New GET /articles/new
         """
         form = ArticleForm()
-        return render_to_response('article_new.html.haml', {'form': form})
+        return render_to_response('article_new.html.haml',
+                {'form': form},
+                context_instance=RequestContext(request))
 
 class ArticleEdit(APIView):
     """
@@ -111,4 +122,6 @@ class ArticleEdit(APIView):
         """
         article = self.get_article(slug)
         form = ArticleForm(instance=article)
-        return render_to_response('article_edit.html.haml', {'form': form, 'article': article})
+        return render_to_response('article_edit.html.haml',
+                {'form': form, 'article': article},
+                context_instance=RequestContext(request))
