@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm
 # for user logout
 from django.contrib.auth import logout
+from django.views.decorators.csrf import csrf_protect
 
 def user_logout(request):
     """
@@ -13,6 +14,7 @@ def user_logout(request):
     logout(request)
     return redirect('users')
 
+@csrf_protect
 def registration(request):
     """
     GET /registration
@@ -38,4 +40,3 @@ def registration(request):
             return render_to_response('registration.html.haml',
                     {'form': form},
                     context_instance=RequestContext(request))
-

@@ -8,6 +8,8 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from blog.models import Article
 from blog.serializers import ArticleSerializer
@@ -93,12 +95,12 @@ class ArticleNew(APIView):
     """
     new article
     """
-
+    @method_decorator(login_required)
     def get(self, request, format=None):
         """
         New GET /articles/new
         """
-        form = ArticleForm()
+        form = ArticleForm(instance=Article(author=request.user))
         return render_to_response('article_new.html.haml',
                 {'form': form},
                 context_instance=RequestContext(request))
