@@ -18,3 +18,6 @@ class ArticleForm(ModelForm):
     class Meta:
         model = Article
         fields = ('slug', 'author', 'title', 'preview', 'content')
+        widgets = {
+                'author': forms.HiddenInput
+                }
