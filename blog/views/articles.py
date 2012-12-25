@@ -1,12 +1,12 @@
 # Create your views here.
-from rest_framework import status
+#from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.response import Response
+#from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
-from django.views.decorators.csrf import csrf_protect
+#from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -34,7 +34,7 @@ class ArticleList(APIView):
                 {'articles': serializers.object},
                 context_instance=RequestContext(request))
 
-    #@csrf_protect
+    #@method_decorator(csrf_protect)
     def post(self, request, format=None):
         """
         Create POST /articles
@@ -71,7 +71,7 @@ class ArticleItem(APIView):
                 {'article': serializer.object},
                 context_instance=RequestContext(request))
 
-    #@csrf_protect
+    #@method_decorator(csrf_protect)
     def put(self, request, slug, format=None):
         """
         Update PUT /articles/:slug

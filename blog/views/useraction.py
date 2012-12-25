@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm
 # for user logout
 from django.contrib.auth import logout
-from django.views.decorators.csrf import csrf_protect
+#from django.views.decorators.csrf import csrf_protect
 
 def user_logout(request):
     """
@@ -14,7 +14,7 @@ def user_logout(request):
     logout(request)
     return redirect('users')
 
-@csrf_protect
+#@csrf_protect
 def registration(request):
     """
     GET /registration
