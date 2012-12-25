@@ -1,8 +1,6 @@
 -extends "layout/base.html.haml"
 - block body
   .container
-    %a{'href': "{% url user_new %}"}
-      = 'create a user'
     %ul
       -for u in users
         %li.user
