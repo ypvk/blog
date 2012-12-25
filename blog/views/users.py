@@ -1,8 +1,6 @@
 # Create your views here.
-from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.settings import api_settings
 
 from django.http import Http404
 from django.shortcuts import render_to_response, redirect
@@ -10,10 +8,6 @@ from django.template import RequestContext
 
 from django.contrib.auth.models import User
 from blog.serializers import UserSerializer
-# form for users 
-from blog.forms import UserRegisterForm, UserLoginForm
-# for user logout
-from django.contrib.auth import logout
 
 import logging
 
@@ -107,10 +101,3 @@ class UserEdit(APIView):
         """
         user = self.get_object(username)
         return Response({'yuping': user.username})
-
-def user_logout(request):
-    """
-    user logout
-    """
-    logout(request)
-    return redirect('users')
