@@ -24,8 +24,11 @@
             %a{'href': '{% url logout %}'}
               = "logout"
           - else
-            %a{'href': '{% url login %}'}
-              = "login"
-
+            %span
+              %a{'href': '{% url login %}'}
+                = "login"
+            %span
+            %a{'href': '{% url registration %}'}
+              = "registration"
     #site
       - block body
