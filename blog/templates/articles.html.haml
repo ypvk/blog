@@ -3,21 +3,20 @@
   .container
     %a{'href': "{% url article_new %}"}
       = "Create new Article"
-    %ul
-      -for article in articles
-        %li
-          .title
-            = article.title
-          .slug
-            %a{'href': "{% url article article.slug %}"}
-              = article.slug
-          .edit
-            %a{'href': "{% url article_edit article.slug %}"}
-              = 'edit'
-          .preview
-            = article.preview
-          .author
-            = article.author.username
-          .delete
-            %a{'href': "{% url article article.slug %}", 'data-method': 'delete', 'data-confirm': 'Are you sure?'}
-              ='Delete'
+    -for article in articles
+      .content
+        .title
+          = article.title
+        .slug
+          %a{'href': "{% url article article.slug %}"}
+            = article.slug
+        .edit
+          %a{'href': "{% url article_edit article.slug %}"}
+            = 'edit'
+        .preview
+          = article.preview
+        .author
+          = article.author.username
+        .delete
+          %a{'href': "{% url article article.slug %}", 'data-method': 'delete', 'data-confirm': 'Are you sure?'}
+            ='Delete'

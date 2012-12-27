@@ -10,6 +10,9 @@
   %body
     #header
       .container.clearfix
+        .site-title
+          %a{'href': '/'}
+            = "Small Blog"
         %ul.site-nav
           %li
             %a{'href': "{% url users %}"}= 'Users'
@@ -24,11 +27,61 @@
             %a{'href': '{% url logout %}'}
               = "logout"
           - else
-            %span
-              %a{'href': '{% url login %}'}
-                = "login"
-            %span
-              %a{'href': '{% url registration %}'}
-                = "registration"
+            %a{'href': '{% url login %}'}
+              = "login"
+            %a{'href': '{% url registration %}'}
+              = "registration"
     #site
       - block body
+      .sidebar
+        %h2
+          = 'Catergary'
+        %ul
+          %li
+            = 'type1'
+          %li
+            = 'type2'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+        %h2
+          = 'Catergary'
+        %ul
+          %li
+            = 'type1'
+          %li
+            = 'type2'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+        %h2
+          = 'Catergary'
+        %ul
+          %li
+            = 'type1'
+          %li
+            = 'type2'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
+          %li
+            = 'type3'
